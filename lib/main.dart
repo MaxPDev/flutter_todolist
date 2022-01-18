@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(const TodoList());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class TodoList extends StatelessWidget {
+  const TodoList({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -15,13 +15,13 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.green,
       ),
-      home: const MyHomePage(title: 'Flutter To-Do List'),
+      home: const AllTasks(title: 'Flutter To-Do List'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, required this.title}) : super(key: key);
+class AllTasks extends StatefulWidget {
+  const AllTasks({Key? key, required this.title}) : super(key: key);
 
   // This widget is the home page of your application. It is stateful, meaning
   // that it has a State object (defined below) that contains fields that affect
@@ -35,10 +35,10 @@ class MyHomePage extends StatefulWidget {
   final String title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<AllTasks> createState() => _AllTasksState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _AllTasksState extends State<AllTasks> {
   int _counter = 0;
 
   void _incrementCounter() {
@@ -62,7 +62,7 @@ class _MyHomePageState extends State<MyHomePage> {
     // than having to individually change instances of widgets.
     return Scaffold(
       appBar: AppBar(
-        // Here we take the value from the MyHomePage object that was created by
+        // Here we take the value from the AllTasks object that was created by
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
