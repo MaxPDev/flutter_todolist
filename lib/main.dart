@@ -13,14 +13,14 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter Demo',
+      title: 'Todo List',
       theme: ThemeData(
-        primarySwatch: Colors.green,
+        primarySwatch: Colors.cyan,
         textTheme: GoogleFonts.robotoTextTheme(
           Theme.of(context).textTheme,
         ),
       ),
-      home: const AllTasks(title: 'Flutter To-Do List'),
+      home: const AllTasks(title: 'To-Do List'),
     );
   }
 }
