@@ -7,7 +7,6 @@ import 'package:todolist/models/task.dart';
 
 class AllTasks extends StatefulWidget {
   const AllTasks({Key? key, required this.title}) : super(key: key);
-  // late Task task_details?;
 
   final String title;
   // final List<Task> datas = data.tasks; // étape non nécessaire : data.tasks directement utilisable
@@ -17,6 +16,9 @@ class AllTasks extends StatefulWidget {
 }
 
 class _AllTasksState extends State<AllTasks> {
+  late Task taskChosen;
+  bool isPreview = false;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,11 +26,31 @@ class _AllTasksState extends State<AllTasks> {
         title: Text(widget.title),
       ),
 
-      body: TaskMaster(
-          dataTasks: data.tasks,
-          onTaskPreviewUp: (Task task) {
-            TaskDetails(task: task);
-          }),
+      body: isPreview
+          ? TaskDetails(task: taskChosen)
+          : TaskMaster(
+              dataTasks: data.tasks,
+              onTaskPreviewUp: (Task task) {
+                print("tok all_tasks");
+                setState(() {
+                  taskChosen = task;
+                  isPreview = true;
+                });
+              }),
+
+      // if (task_details != null) {
+      //   TaskDetails(task: task)
+      // } else {
+      // TaskMaster(
+      //     dataTasks: data.tasks,
+      //     onTaskPreviewUp: (Task task) {
+      //       print("tok all_tasks");
+      //       task_details = task;
+      //       ;
+      //     }),
+
+      // }
+      // TaskDetails(task: task)
 
       floatingActionButton: FloatingActionButton(
         onPressed: () {},

@@ -11,8 +11,8 @@ class TaskDetails extends StatelessWidget {
     return Center(
       child: Column(
         children: <Widget>[
-          Text(task.content),
           const Text('Task details here'),
+          Text(task.content),
         ],
       ),
     );

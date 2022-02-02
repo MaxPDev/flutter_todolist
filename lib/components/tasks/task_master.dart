@@ -22,6 +22,7 @@ class TaskMaster extends StatelessWidget {
           return TaskPreview(
               task: dataTasks[index],
               onTaskPreviewTap: (Task task) {
+                print(task.content);
                 onTaskPreviewUp(task);
               });
         },
