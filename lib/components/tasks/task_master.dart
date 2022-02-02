@@ -4,16 +4,26 @@ import 'package:todolist/components/tasks/task_preview.dart';
 import 'package:todolist/models/task.dart';
 
 class TaskMaster extends StatelessWidget {
-  const TaskMaster({Key? key, required this.dataTasks}) : super(key: key);
+  const TaskMaster(
+      {Key? key, required this.dataTasks, required this.onTaskPreviewUp})
+      : super(key: key);
   //constrcuteur
   final List<Task> dataTasks;
+  final Function onTaskPreviewUp;
+
   @override
   Widget build(BuildContext context) {
     return Center(
       child: ListView.builder(
         itemCount: dataTasks.length,
         itemBuilder: (context, index) {
-          return TaskPreview(task: dataTasks[index]);
+          // title: onTaskPreviewTap() {Text("test")},
+          // communiquer nom d'une méthode en param :
+          return TaskPreview(
+              task: dataTasks[index],
+              onTaskPreviewTap: (Task task) {
+                onTaskPreviewUp(task);
+              });
         },
       ),
     );

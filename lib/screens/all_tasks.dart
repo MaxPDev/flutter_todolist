@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:todolist/components/tasks/task_details.dart';
+import 'package:todolist/components/tasks/task_preview.dart';
 import 'package:todolist/data/tasks.dart' as data;
 import 'package:todolist/components/tasks/task_master.dart';
+import 'package:todolist/models/task.dart';
 
 class AllTasks extends StatefulWidget {
   const AllTasks({Key? key, required this.title}) : super(key: key);
+  // late Task task_details?;
 
   final String title;
   // final List<Task> datas = data.tasks; // étape non nécessaire : data.tasks directement utilisable
@@ -19,7 +23,13 @@ class _AllTasksState extends State<AllTasks> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
-      body: TaskMaster(dataTasks: data.tasks),
+
+      body: TaskMaster(
+          dataTasks: data.tasks,
+          onTaskPreviewUp: (Task task) {
+            TaskDetails(task: task);
+          }),
+
       floatingActionButton: FloatingActionButton(
         onPressed: () {},
         tooltip: 'Add a Task',
