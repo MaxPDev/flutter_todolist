@@ -26,17 +26,36 @@ class _AllTasksState extends State<AllTasks> {
         title: Text(widget.title),
       ),
 
-      body: isPreview
-          ? TaskDetails(task: taskChosen)
-          : TaskMaster(
-              dataTasks: data.tasks,
-              onTaskPreviewUp: (Task task) {
-                print("tok all_tasks");
-                setState(() {
-                  taskChosen = task;
-                  isPreview = true;
-                });
-              }),
+      body: Column(
+        children: <Widget>[
+          Row(
+            children: [isPreview ? TaskDetails(task: taskChosen) : Text('')],
+          ),
+          Expanded(
+              child: TaskMaster(
+            dataTasks: data.tasks,
+            onTaskPreviewUp: (Task task) {
+              print("All task ok");
+              setState(() {
+                taskChosen = task;
+                isPreview = true;
+              });
+            },
+          ))
+        ],
+      ),
+
+      //* body: isPreview
+      //*     ? TaskDetails(task: taskChosen)
+      //*     : TaskMaster(
+      //*         dataTasks: data.tasks,
+      //*         onTaskPreviewUp: (Task task) {
+      //*           print("tok all_tasks");
+      //*           setState(() {
+      //*             taskChosen = task;
+      //*             isPreview = true;
+      //*           });
+      //*         }),
 
       // if (task_details != null) {
       //   TaskDetails(task: task)
