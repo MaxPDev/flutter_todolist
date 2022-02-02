@@ -29,7 +29,9 @@ class _AllTasksState extends State<AllTasks> {
       body: Column(
         children: <Widget>[
           Row(
-            children: [isPreview ? TaskDetails(task: taskChosen) : Text('')],
+            children: [
+              isPreview ? TaskDetails(task: taskChosen) : const Text('')
+            ],
           ),
           Expanded(
               child: TaskMaster(

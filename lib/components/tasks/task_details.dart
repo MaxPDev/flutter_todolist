@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:todolist/models/task.dart';
 
@@ -9,12 +10,49 @@ class TaskDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: Column(
-        children: <Widget>[
-          const Text('Task details here'),
-          Text(task.content),
-        ],
+      child: AnimatedContainer(
+        width: task.completed ? 300 : 350,
+        height: task.completed ? 120.0 : 120.0,
+        color: task.completed ? Colors.blue[200] : Colors.red[100],
+        alignment:
+            task.completed ? Alignment.center : AlignmentDirectional.topCenter,
+        duration: const Duration(seconds: 2),
+        curve: Curves.fastOutSlowIn,
+        child: Column(
+          // mainAxisAlignment: MainAxisAlignment.spaceAround,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: <Widget>[
+            const Text('Task details here'),
+            const SizedBox(height: 20),
+            Text(task.content),
+            const SizedBox(height: 3),
+            Text('${task.createdAt}'),
+            const SizedBox(height: 10),
+            !task.completed
+                ? const Text('DO IT NOW')
+                : const Text('Already done dude, relax'),
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
+
+      //* Version ok:
+      //* child: Column(
+      //*   // mainAxisAlignment: MainAxisAlignment.spaceAround,
+      //*   crossAxisAlignment: CrossAxisAlignment.center,
+      //*   children: <Widget>[
+      //*     const Text('Task details here'),
+      //*     const SizedBox(height: 20),
+      //*     Text(task.content),
+      //*     const SizedBox(height: 3),
+      //*     Text('${task.createdAt}'),
+      //*     const SizedBox(height: 10),
+      //*     !task.completed
+      //*         ? const Text('DO IT NOW')
+      //*         : const Text('Already done dude, relax'),
+      //*     const SizedBox(height: 10),
+      //*   ],
+      //* ),
     );
   }
 }//
