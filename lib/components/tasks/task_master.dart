@@ -15,6 +15,7 @@ class TaskMaster extends StatelessWidget {
   Widget build(BuildContext context) {
     return Center(
       child: ListView.builder(
+        cacheExtent: 0.0,
         itemCount: dataTasks.length,
         itemBuilder: (context, index) {
           // title: onTaskPreviewTap() {Text("test")},

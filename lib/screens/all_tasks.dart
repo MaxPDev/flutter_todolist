@@ -30,7 +30,9 @@ class _AllTasksState extends State<AllTasks> {
         children: <Widget>[
           Row(
             children: [
-              isPreview ? TaskDetails(task: taskChosen) : const Text('')
+              isPreview
+                  ? TaskDetails(task: taskChosen)
+                  : Container() // permet de ne rien afficher, au lien d'un blanc
             ],
           ),
           Expanded(

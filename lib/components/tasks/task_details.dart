@@ -9,18 +9,24 @@ class TaskDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: AnimatedContainer(
-        width: task.completed ? 300 : 350,
-        height: task.completed ? 120.0 : 120.0,
-        color: task.completed ? Colors.blue[200] : Colors.red[100],
-        alignment:
-            task.completed ? Alignment.center : AlignmentDirectional.topCenter,
-        duration: const Duration(seconds: 2),
-        curve: Curves.fastOutSlowIn,
+    return Expanded(
+      child: Container(
+        decoration: BoxDecoration(
+          color: !task.completed ? Colors.orange[300] : Colors.green[300],
+          // border: Border.all(width: 5, color: Colors.grey),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(1),
+              spreadRadius: 5,
+              blurRadius: 7,
+              offset: const Offset(0, 3), // changes position of shadow
+            ),
+          ],
+          borderRadius: BorderRadius.circular(5),
+        ),
+        // mainAxisAlignment: MainAxisAlignment.spaceAround,
+        // crossAxisAlignment: CrossAxisAlignment.center,
         child: Column(
-          // mainAxisAlignment: MainAxisAlignment.spaceAround,
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: <Widget>[
             const Text('Task details here'),
             const SizedBox(height: 20),
@@ -35,24 +41,6 @@ class TaskDetails extends StatelessWidget {
           ],
         ),
       ),
-
-      //* Version ok:
-      //* child: Column(
-      //*   // mainAxisAlignment: MainAxisAlignment.spaceAround,
-      //*   crossAxisAlignment: CrossAxisAlignment.center,
-      //*   children: <Widget>[
-      //*     const Text('Task details here'),
-      //*     const SizedBox(height: 20),
-      //*     Text(task.content),
-      //*     const SizedBox(height: 3),
-      //*     Text('${task.createdAt}'),
-      //*     const SizedBox(height: 10),
-      //*     !task.completed
-      //*         ? const Text('DO IT NOW')
-      //*         : const Text('Already done dude, relax'),
-      //*     const SizedBox(height: 10),
-      //*   ],
-      //* ),
     );
   }
 }//
