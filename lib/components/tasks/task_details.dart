@@ -3,16 +3,18 @@ import 'package:flutter/widgets.dart';
 import 'package:todolist/models/task.dart';
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails({Key? key, required this.task}) : super(key: key);
+  const TaskDetails({Key? key, required this.task, required this.onClose})
+      : super(key: key);
 
-  final Task task;
+  final Function onClose;
+  final Task? task;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          color: !task.completed ? Colors.orange[300] : Colors.green[300],
+          color: task!.completed ? Colors.orange[300] : Colors.green[300],
           // border: Border.all(width: 5, color: Colors.grey),
           boxShadow: [
             BoxShadow(
@@ -26,18 +28,31 @@ class TaskDetails extends StatelessWidget {
         ),
         // mainAxisAlignment: MainAxisAlignment.spaceAround,
         // crossAxisAlignment: CrossAxisAlignment.center,
-        child: Column(
-          children: <Widget>[
-            const Text('Task details here'),
-            const SizedBox(height: 20),
-            Text(task.content),
-            const SizedBox(height: 3),
-            Text('${task.createdAt}'),
-            const SizedBox(height: 10),
-            !task.completed
-                ? const Text('DO IT NOW')
-                : const Text('Already done dude, relax'),
-            const SizedBox(height: 10),
+        child: Row(
+          children: [
+            Column(
+              children: <Widget>[
+                const Text('Task details here'),
+                const SizedBox(height: 20),
+                Text(task!.content),
+                const SizedBox(height: 3),
+                Text('${task!.createdAt}'),
+                const SizedBox(height: 10),
+                task!.completed
+                    ? const Text('DO IT NOW')
+                    : const Text('Already done dude, relax'),
+                const SizedBox(height: 10),
+              ],
+            ),
+            Column(
+              children: [
+                CloseButton(
+                  onPressed: () {
+                    onClose();
+                  },
+                )
+              ],
+            )
           ],
         ),
       ),

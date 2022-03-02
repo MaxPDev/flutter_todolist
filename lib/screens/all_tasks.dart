@@ -16,8 +16,14 @@ class AllTasks extends StatefulWidget {
 }
 
 class _AllTasksState extends State<AllTasks> {
-  late Task taskChosen;
-  bool isPreview = false;
+  Task? taskChosen;
+  // bool isPreview = false;
+
+  void _closeDetails() {
+    setState(() {
+      taskChosen = null;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,8 +36,8 @@ class _AllTasksState extends State<AllTasks> {
         children: <Widget>[
           Row(
             children: [
-              isPreview
-                  ? TaskDetails(task: taskChosen)
+              (taskChosen != null)
+                  ? TaskDetails(task: taskChosen, onClose: _closeDetails)
                   : Container() // permet de ne rien afficher, au lien d'un blanc
             ],
           ),
@@ -42,7 +48,7 @@ class _AllTasksState extends State<AllTasks> {
               print("All task ok");
               setState(() {
                 taskChosen = task;
-                isPreview = true;
+                // isPreview = true;
               });
             },
           ))
