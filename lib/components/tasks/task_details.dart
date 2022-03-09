@@ -3,18 +3,25 @@ import 'package:flutter/widgets.dart';
 import 'package:todolist/models/task.dart';
 
 class TaskDetails extends StatelessWidget {
-  const TaskDetails({Key? key, required this.task, required this.onClose})
+  const TaskDetails(
+      {Key? key,
+      required this.task,
+      required this.onClose,
+      required this.onRemoveTask,
+      required this.onUpdateTask})
       : super(key: key);
 
   final Function onClose;
   final Task? task;
+  final Function onRemoveTask;
+  final Function onUpdateTask;
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
       child: Container(
         decoration: BoxDecoration(
-          color: task!.completed ? Colors.orange[300] : Colors.green[300],
+          color: task!.completed ? Colors.green[300] : Colors.orange[300],
           // border: Border.all(width: 5, color: Colors.grey),
           boxShadow: [
             BoxShadow(
@@ -46,10 +53,37 @@ class TaskDetails extends StatelessWidget {
             ),
             Column(
               children: [
-                CloseButton(
-                  onPressed: () {
-                    onClose();
-                  },
+                Row(
+                  children: [
+                    CloseButton(
+                      onPressed: () {
+                        onClose();
+                      },
+                    ),
+                  ],
+                ),
+                Row(
+                  children: [
+                    Column(
+                      children: [
+                        IconButton(
+                            onPressed: () {
+                              onRemoveTask();
+                            },
+                            icon: const Icon(Icons.delete)),
+                      ],
+                    ),
+                    Column(
+                      children: [
+                        IconButton(
+                          onPressed: () {
+                            onUpdateTask();
+                          },
+                          icon: const Icon(Icons.add_task),
+                        ),
+                      ],
+                    ),
+                  ],
                 )
               ],
             )

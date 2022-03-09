@@ -9,20 +9,49 @@ class AllTasks extends StatefulWidget {
   const AllTasks({Key? key, required this.title}) : super(key: key);
 
   final String title;
-  // final List<Task> datas = data.tasks; // étape non nécessaire : data.tasks directement utilisable
 
   @override
   State<AllTasks> createState() => _AllTasksState();
 }
 
 class _AllTasksState extends State<AllTasks> {
-  Task? taskChosen;
+  final List<Task> tasks =
+      data.tasks; // étape non nécessaire : data.tasks directement utilisable
+  Task? chosenTask;
   // bool isPreview = false;
 
   void _closeDetails() {
     setState(() {
-      taskChosen = null;
+      chosenTask = null;
     });
+  }
+
+  void _removeTask() {
+    // snackbar : message de confirmation
+    final snackBar = SnackBar(
+      content: const Text('Sei sicuro ?'),
+      duration: const Duration(seconds: 3),
+      action: SnackBarAction(
+        label: 'Si si dai',
+        onPressed: () {
+          setState(() {
+            tasks.removeWhere((item) => item.id == chosenTask!.id);
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Deleted'),
+            ));
+            _closeDetails();
+          });
+          ;
+        },
+      ),
+    );
+
+    // Appelle la snack bar
+    ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  }
+
+  void _updateTask() {
+    print("test");
   }
 
   @override
@@ -36,18 +65,22 @@ class _AllTasksState extends State<AllTasks> {
         children: <Widget>[
           Row(
             children: [
-              (taskChosen != null)
-                  ? TaskDetails(task: taskChosen, onClose: _closeDetails)
+              (chosenTask != null)
+                  ? TaskDetails(
+                      task: chosenTask,
+                      onClose: _closeDetails,
+                      onRemoveTask: _removeTask,
+                      onUpdateTask: _updateTask)
                   : Container() // permet de ne rien afficher, au lien d'un blanc
             ],
           ),
           Expanded(
               child: TaskMaster(
-            dataTasks: data.tasks,
+            dataTasks: tasks,
             onTaskPreviewUp: (Task task) {
               print("All task ok");
               setState(() {
-                taskChosen = task;
+                chosenTask = task;
                 // isPreview = true;
               });
             },
@@ -56,13 +89,13 @@ class _AllTasksState extends State<AllTasks> {
       ),
 
       //* body: isPreview
-      //*     ? TaskDetails(task: taskChosen)
+      //*     ? TaskDetails(task: chosenTask)
       //*     : TaskMaster(
       //*         dataTasks: data.tasks,
       //*         onTaskPreviewUp: (Task task) {
       //*           print("tok all_tasks");
       //*           setState(() {
-      //*             taskChosen = task;
+      //*             chosenTask = task;
       //*             isPreview = true;
       //*           });
       //*         }),
