@@ -4,6 +4,9 @@ import 'package:todolist/components/tasks/task_preview.dart';
 import 'package:todolist/data/tasks.dart' as data;
 import 'package:todolist/components/tasks/task_master.dart';
 import 'package:todolist/models/task.dart';
+import 'package:provider/provider.dart';
+import 'package:todolist/models/task.dart';
+import 'package:todolist/data/tasks_collection.dart';
 
 class AllTasks extends StatefulWidget {
   const AllTasks({Key? key, required this.title}) : super(key: key);
@@ -56,70 +59,99 @@ class _AllTasksState extends State<AllTasks> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.title),
-      ),
+    return Consumer<TasksCollection>(
+        builder: (context, tasksCollection, child) {
+      return Scaffold(
+        appBar: AppBar(
+          title: Text(widget.title),
+        ),
 
-      body: Column(
-        children: <Widget>[
-          Row(
-            children: [
-              (chosenTask != null)
-                  ? TaskDetails(
-                      task: chosenTask,
-                      onClose: _closeDetails,
-                      onRemoveTask: _removeTask,
-                      onUpdateTask: _updateTask)
-                  : Container() // permet de ne rien afficher, au lien d'un blanc
-            ],
-          ),
-          Expanded(
-              child: TaskMaster(
-            dataTasks: tasks,
-            onTaskPreviewUp: (Task task) {
-              print("All task ok");
-              setState(() {
-                chosenTask = task;
-                // isPreview = true;
-              });
-            },
-          ))
-        ],
-      ),
+        body: Column(
+          children: <Widget>[
+            Row(
+              children: [
+                (chosenTask != null)
+                    ? TaskDetails(
+                        task: chosenTask,
+                        onClose: _closeDetails,
+                        onUpdateTask: _updateTask,
+                        // onRemoveTask: _removeTask
+                        onRemoveTask: () {
+                          // snackbar : message de confirmation
+                          final snackBar = SnackBar(
+                            content: const Text('Sei sicuro ?'),
+                            duration: const Duration(seconds: 3),
+                            action: SnackBarAction(
+                              label: 'Si si dai',
+                              onPressed: () {
+                                setState(() {
+                                  tasks.removeWhere(
+                                      (item) => item.id == chosenTask!.id);
+                                  ScaffoldMessenger.of(context)
+                                      .showSnackBar(const SnackBar(
+                                    content: Text('Deleted'),
+                                  ));
+                                  _closeDetails();
+                                });
+                                ;
+                              },
+                            ),
+                          );
 
-      //* body: isPreview
-      //*     ? TaskDetails(task: chosenTask)
-      //*     : TaskMaster(
-      //*         dataTasks: data.tasks,
-      //*         onTaskPreviewUp: (Task task) {
-      //*           print("tok all_tasks");
-      //*           setState(() {
-      //*             chosenTask = task;
-      //*             isPreview = true;
-      //*           });
-      //*         }),
+                          // Appelle la snack bar
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        },
+                      )
+                    : Container() // permet de ne rien afficher, au lien d'un blanc
+              ],
+            ),
+            Expanded(
+                child: TaskMaster(
+              dataTasks: tasksCollection.getAllTasks(),
+              onTaskPreviewUp: (Task task) {
+                print("All task ok");
+                setState(() {
+                  chosenTask = task;
+                  // isPreview = true;
+                });
+              },
+            ))
+          ],
+        ),
 
-      // if (task_details != null) {
-      //   TaskDetails(task: task)
-      // } else {
-      // TaskMaster(
-      //     dataTasks: data.tasks,
-      //     onTaskPreviewUp: (Task task) {
-      //       print("tok all_tasks");
-      //       task_details = task;
-      //       ;
-      //     }),
+        //* body: isPreview
+        //*     ? TaskDetails(task: chosenTask)
+        //*     : TaskMaster(
+        //*         dataTasks: data.tasks,
+        //*         onTaskPreviewUp: (Task task) {
+        //*           print("tok all_tasks");
+        //*           setState(() {
+        //*             chosenTask = task;
+        //*             isPreview = true;
+        //*           });
+        //*         }),
 
-      // }
-      // TaskDetails(task: task)
+        // if (task_details != null) {
+        //   TaskDetails(task: task)
+        // } else {
+        // TaskMaster(
+        //     dataTasks: data.tasks,
+        //     onTaskPreviewUp: (Task task) {
+        //       print("tok all_tasks");
+        //       task_details = task;
+        //       ;
+        //     }),
 
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Add a Task',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
+        // }
+        // TaskDetails(task: task)
+
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          tooltip: 'Add a Task',
+          child: const Icon(Icons.add),
+        ), // This trailing comma makes auto-formatting nicer for build methods.
+      );
+    });
   }
 }
 

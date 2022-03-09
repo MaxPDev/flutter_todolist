@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/screens/all_tasks.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
+import 'package:todolist/data/tasks_collection.dart';
 
 void main() {
-  runApp(const TodoList());
+  runApp(
+    ChangeNotifierProvider(
+      create: (context) => TasksCollection(),
+      child: const TodoList(),
+    ),
+  );
 }
 
 class TodoList extends StatelessWidget {
