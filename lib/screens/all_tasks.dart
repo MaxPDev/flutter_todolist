@@ -29,29 +29,29 @@ class _AllTasksState extends State<AllTasks> {
     });
   }
 
-  void _removeTask() {
-    // snackbar : message de confirmation
-    final snackBar = SnackBar(
-      content: const Text('Sei sicuro ?'),
-      duration: const Duration(seconds: 3),
-      action: SnackBarAction(
-        label: 'Si si dai',
-        onPressed: () {
-          setState(() {
-            tasks.removeWhere((item) => item.id == chosenTask!.id);
-            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
-              content: Text('Deleted'),
-            ));
-            _closeDetails();
-          });
-          ;
-        },
-      ),
-    );
+  // void _removeTask() {
+  //   // snackbar : message de confirmation
+  //   final snackBar = SnackBar(
+  //     content: const Text('Sei sicuro ?'),
+  //     duration: const Duration(seconds: 3),
+  //     action: SnackBarAction(
+  //       label: 'Si si dai',
+  //       onPressed: () {
+  //         setState(() {
+  //           tasks.removeWhere((item) => item.id == chosenTask!.id);
+  //           ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+  //             content: Text('Deleted'),
+  //           ));
+  //           _closeDetails();
+  //         });
+  //         ;
+  //       },
+  //     ),
+  //   );
 
-    // Appelle la snack bar
-    ScaffoldMessenger.of(context).showSnackBar(snackBar);
-  }
+  //   // Appelle la snack bar
+  //   ScaffoldMessenger.of(context).showSnackBar(snackBar);
+  // }
 
   void _updateTask() {
     print("test");
