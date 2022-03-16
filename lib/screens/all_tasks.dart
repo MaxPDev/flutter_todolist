@@ -7,6 +7,7 @@ import 'package:todolist/models/task.dart';
 import 'package:provider/provider.dart';
 import 'package:todolist/models/task.dart';
 import 'package:todolist/data/tasks_collection.dart';
+import 'package:todolist/screens/create_task.dart';
 
 class AllTasks extends StatefulWidget {
   const AllTasks({Key? key, required this.title}) : super(key: key);
@@ -148,7 +149,9 @@ class _AllTasksState extends State<AllTasks> {
         // TaskDetails(task: task)
 
         floatingActionButton: FloatingActionButton(
-          onPressed: () {},
+          onPressed: () {
+            Navigator.pushNamed(context, CreateTask.route);
+          },
           tooltip: 'Add a Task',
           child: const Icon(Icons.add),
         ), // This trailing comma makes auto-formatting nicer for build methods.
