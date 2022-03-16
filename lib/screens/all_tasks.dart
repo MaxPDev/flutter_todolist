@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:todolist/components/tasks/task_details.dart';
 import 'package:todolist/components/tasks/task_preview.dart';
-import 'package:todolist/data/tasks.dart' as data;
+// import 'package:todolist/data/tasks.dart' as data;
 import 'package:todolist/components/tasks/task_master.dart';
 import 'package:todolist/models/task.dart';
 import 'package:provider/provider.dart';
@@ -18,8 +18,8 @@ class AllTasks extends StatefulWidget {
 }
 
 class _AllTasksState extends State<AllTasks> {
-  final List<Task> tasks =
-      data.tasks; // étape non nécessaire : data.tasks directement utilisable
+  // final List<Task> tasks =
+  //     data.tasks; // étape non nécessaire : data.tasks directement utilisable
   Task? chosenTask;
   // bool isPreview = false;
 
@@ -85,8 +85,10 @@ class _AllTasksState extends State<AllTasks> {
                               label: 'Si si dai',
                               onPressed: () {
                                 setState(() {
-                                  tasks.removeWhere(
-                                      (item) => item.id == chosenTask!.id);
+                                  // Old version, without provider :
+                                  // tasks.removeWhere(
+                                  //     (item) => item.id == chosenTask!.id);
+                                  tasksCollection.deleteTask(chosenTask!.id);
                                   ScaffoldMessenger.of(context)
                                       .showSnackBar(const SnackBar(
                                     content: Text('Deleted'),
