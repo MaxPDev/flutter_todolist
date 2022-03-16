@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:todolist/models/task.dart';
+import 'package:todolist/screens/one_task.dart';
 
 class TaskDetails extends StatelessWidget {
   const TaskDetails(
@@ -77,7 +78,10 @@ class TaskDetails extends StatelessWidget {
                       children: [
                         IconButton(
                           onPressed: () {
-                            onUpdateTask();
+                            // onUpdateTask();
+                            Navigator.pushNamed(context, OneTask.route,
+                                arguments: task);
+                            onClose();
                           },
                           icon: const Icon(Icons.add_task),
                         ),

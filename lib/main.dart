@@ -3,12 +3,25 @@ import 'package:todolist/screens/all_tasks.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:provider/provider.dart';
 import 'package:todolist/data/tasks_collection.dart';
+import 'package:todolist/screens/create_task.dart';
+import 'package:todolist/screens/one_task.dart';
 
 void main() {
   runApp(
     ChangeNotifierProvider(
       create: (context) => TasksCollection(),
       child: const TodoList(),
+      // child: MaterialApp(
+      //   debugShowCheckedModeBanner: false,
+      //   initialRoute: '/all_tasks',
+      //   routes: {
+      //     '/all_tasks': (context) => const AllTasks(
+      //           title: 'Todo List',
+      //         ),
+      //     '/one_task': (context) => const OneTask(),
+      //     // '/create_task': (context) => const CreateTask(),
+      //   },
+      // ),
     ),
   );
 }
@@ -20,6 +33,15 @@ class TodoList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      initialRoute: '/all_tasks',
+      routes: {
+        '/all_tasks': (context) => const AllTasks(
+              title: 'Todo List',
+            ),
+        '/one_task': (context) => const OneTask(),
+        // '/create_task': (context) => const CreateTask(),
+      },
       title: 'Todo List',
       theme: ThemeData(
         primarySwatch: Colors.cyan,
