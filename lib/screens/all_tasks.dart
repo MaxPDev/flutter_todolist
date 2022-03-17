@@ -24,6 +24,7 @@ class _AllTasksState extends State<AllTasks> {
   Task? chosenTask;
   // bool isPreview = false;
 
+// appelle api getTask
   @override
   void initState() {
     super.initState();

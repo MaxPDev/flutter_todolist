@@ -46,7 +46,7 @@ class TaskDetails extends StatelessWidget {
                 const SizedBox(height: 3),
                 Text('${task!.createdAt}'),
                 const SizedBox(height: 10),
-                task!.completed
+                !task!.completed
                     ? const Text('DO IT NOW')
                     : const Text('Already done dude, relax'),
                 const SizedBox(height: 10),

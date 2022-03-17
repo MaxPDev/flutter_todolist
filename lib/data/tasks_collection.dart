@@ -36,7 +36,7 @@ class TasksCollection extends ChangeNotifier {
   // }
 
   Future getAllTasksFromAPI() async {
-    var response = await Dio().get('https://jsonplaceholder.typicode.com/todos',
+    var response = await Dio().get(uriAPI,
         options: Options(headers: {
           Headers.contentTypeHeader: 'application/json',
           Headers.acceptHeader: 'application/json'
