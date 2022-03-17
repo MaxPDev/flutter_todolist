@@ -24,6 +24,14 @@ class _AllTasksState extends State<AllTasks> {
   Task? chosenTask;
   // bool isPreview = false;
 
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addPostFrameCallback((timeStamp) {
+      Provider.of<TasksCollection>(context, listen: false).getAllTasksFromAPI();
+    });
+  }
+
   void _closeDetails() {
     setState(() {
       chosenTask = null;
