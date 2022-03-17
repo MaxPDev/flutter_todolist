@@ -25,7 +25,7 @@ class _CreateTaskState extends State<CreateTask> {
             return TaskForm(
               onChangeTask: (content, complete, createdAt) {
                 setState(() {
-                  int id = tasksCollection.lengthListTasks();
+                  int id = tasksCollection.getNewId();
                   Task task = Task(id, content, complete, createdAt);
                   tasksCollection.createTask(task);
                 });

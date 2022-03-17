@@ -16,7 +16,7 @@ class TaskForm extends StatefulWidget {
 
 class _TaskFormState extends State<TaskForm> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  late bool checkedValue;
+  late bool _taskStatus;
 
   // * controller(s) about the input(s)
   TextEditingController taskNameController = TextEditingController();
@@ -28,7 +28,7 @@ class _TaskFormState extends State<TaskForm> {
     if (widget.taskToUpdate != null) {
       taskNameController =
           TextEditingController(text: widget.taskToUpdate!.content);
-      checkedValue = widget.taskToUpdate!.completed;
+      _taskStatus = widget.taskToUpdate!.completed;
     }
   }
 
@@ -48,10 +48,10 @@ class _TaskFormState extends State<TaskForm> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Checkbox(
-                              value: checkedValue,
+                              value: _taskStatus,
                               onChanged: (newValue) {
                                 setState(() {
-                                  checkedValue = newValue!;
+                                  _taskStatus = newValue!;
                                 });
                               },
                               shape: const CircleBorder(
@@ -84,7 +84,7 @@ class _TaskFormState extends State<TaskForm> {
                                 widget.onChangeTask(Task(
                                     widget.taskToUpdate!.id,
                                     taskNameController.text,
-                                    checkedValue,
+                                    _taskStatus,
                                     DateTime.now()));
                                 Navigator.pop(context);
                                 //hide current snackbar

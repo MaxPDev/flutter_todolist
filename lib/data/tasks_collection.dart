@@ -65,4 +65,8 @@ class TasksCollection extends ChangeNotifier {
   int lengthListTasks() {
     return _tasks.length;
   }
+
+  int getNewId() {
+    return _tasks.length + 1;
+  }
 }
